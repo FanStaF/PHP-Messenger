@@ -1,0 +1,7 @@
+{
+  "vim.leader": ",",
+  "vim.hlsearch": true,
+  "vim.useSystemClipboard": true,
+  "vim.smartRelativeLine": true,
+
+}
