@@ -15,9 +15,9 @@ function base_path($path)
     return BASE_PATH . $path;
 }
 
-function view($view, $messages = [])
+function view($view, $errors = [])
 {
-    extract($messages);
+    extract($errors);
     require BASE_PATH . 'view' . DIRECTORY_SEPARATOR . $view;
 }
 

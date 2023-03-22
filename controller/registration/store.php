@@ -11,11 +11,11 @@ $formData = [
     'password' => $_POST['password']
 ];
 
-$messages = FormValidator::validateFormData($formData);
+$errors = FormValidator::validateFormData($formData);
 
-if (count($messages)) {
+if (count($errors)) {
     return view('registration/create.view.php', [
-        'errors' => $messages
+        'errors' => $errors
     ]);
 }
 
@@ -48,7 +48,7 @@ if ($user) {
     $id = $user['userId'];
     login($id);
 
-    header('location: /session');
+    header('location: /messages');
 
 }
 

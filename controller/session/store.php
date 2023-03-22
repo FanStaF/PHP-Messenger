@@ -9,11 +9,11 @@ $formData = [
     'password' => $_POST['password']
 ];
 
-$messages = FormValidator::validateFormData($formData);
+$errors = FormValidator::validateFormData($formData);
 
-if (count($messages)) {
+if (count($errors)) {
     return view("session/create.view.php", [
-        'errors' => $messages
+        'errors' => $errors
     ]);
 } else {
     $db = new Database();
@@ -24,13 +24,19 @@ if (count($messages)) {
         'email' => $email
     ])->find();
 
-    if (password_verify($_POST['password'], $user['password'])) {
-        
-        login($user['userId']);
-        
-        header('location: /session');
-    }
 
+    if ($user && password_verify($_POST['password'], $user['password'])) {
+
+        login($user['userId']);
+        header('location: /messages');
+
+    } else {
+
+        view('session/create.view.php', [
+            'error' => 'Incorrect login'
+
+        ]);
+    }
 }
 
 

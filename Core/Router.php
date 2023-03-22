@@ -1,6 +1,7 @@
 <?php
 
 namespace Core;
+
 class Router
 {
     protected $routes = [];
@@ -31,7 +32,12 @@ class Router
     {
         return $this->add($uri, $controller, 'DELETE');
     }
-
+    
+    public function put($uri, $controller)
+    {
+        return $this->add($uri, $controller, 'PUT');
+    }
+    
     public function patch($uri, $controller)
     {
         return $this->add($uri, $controller, 'PATCH');
@@ -42,12 +48,12 @@ class Router
 
         foreach ($this->routes as $route) {
             if ($route['uri'] === $uri && $route['method'] === strtoupper($method)) {
-//                if ($route['middleware']) {
+                //                if ($route['middleware']) {
 //                    $middleware = Middleware::MAP[$route['middleware']];
 //                    (new $middleware)->handle();
 //
 //                }
-                
+
                 return require base_path($route['controller']);
             }
         }

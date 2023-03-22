@@ -20,15 +20,14 @@
                 <input type="password" name="password" placeholder="Password" class="login-input">
 
                 <button type="submit">Register</button>
-                <?php if (isset($messages)) {
+                <?php if (isset($errors)) {
                     echo '<p class="errors">';
-                    foreach ($messages as $error) {
-                        foreach ($error as $message) {
-                            echo $message . '<br>';
-                        }
+                    foreach ($errors as $error) {
+                        echo $error . '<br>';
                     }
                     echo '</p>';
                 }
+
                 ?>
             </form>
         </section>
