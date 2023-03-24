@@ -3,7 +3,7 @@
 
 <body
 <main>
-    <h1>Hello! Welcome to FanStaF messanger</h1>
+    <h1>Hello! Welcome to FanStaF Messenger</h1>
     <p>Please login or register to make friends and send messages.</p>
 </main>
 </body>
