@@ -1,5 +1,5 @@
 <?php
 
-logout($_SESSION['userId']);
+logout($_SESSION['userID']);
 
-header('location: /login');
+header('location: /');

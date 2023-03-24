@@ -27,7 +27,7 @@ if (count($errors)) {
 
     if ($user && password_verify($_POST['password'], $user['password'])) {
 
-        login($user['userId']);
+        login($user['userID']);
         header('location: /messages');
 
     } else {

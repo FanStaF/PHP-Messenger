@@ -3,5 +3,6 @@
   "vim.hlsearch": true,
   "vim.useSystemClipboard": true,
   "vim.smartRelativeLine": true,
+  "ftp-simple.remote-workspace": "fanstaf@messanger.fanstaf.com",
 
 }

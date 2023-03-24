@@ -3,7 +3,8 @@
 
 <body>
     <main>
-        <section>
+        <section class="section-container">
+            
             <form action="/session" method="POST" class="login-form">
                 <h1>Log In</h1>
 

@@ -12,8 +12,8 @@ class Database
             'dbname' => 'messanger',
             'charset' => 'utf8mb4'
     ];
-    protected $username = 'root';
-    protected $password = '';
+    protected $username = 'root'; //messenger 
+    protected $password = ''; //4k7]D,9GLbQQ
 
 //Public variables
     public $connection;
@@ -45,10 +45,18 @@ class Database
 
         return $this->statement->fetch();
     }
+    public function getString(){
+
+        return $this->statement->fetch(PDO::FETCH_COLUMN);
+    }
 
     public function getAll(){
 
         return $this->statement->fetchAll();
     }
 
+    public function getColumn(){
+
+        return $this->statement->fetchAll(PDO::FETCH_COLUMN);
+    }
 }

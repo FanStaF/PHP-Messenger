@@ -3,10 +3,12 @@
 
 <body>
     <main>
-        <h1>Welcome <?= $currentUser->getFirstname(); ?>.</h1>
-        <h2>Here are your messages.</h2>
+        <section class="section-container">
+            <h1>Welcome
+                <?= $currentUser->getFirstname(); ?>.
+            </h1>
+            <h2>Here are your messages.</h2>
 
-        <section class="message-container">
             <?php
 
             $messages = $currentUser->getMyRecievedMessages();
@@ -14,8 +16,11 @@
             $counter = 1;
 
             foreach ($messages as $message): ?>
-                <ul class="message <?= $counter % 2 ? 'justify-left' : 'justify-right' ?>">
-                    <?= $message->printMessage() . ' -' . $message->sender ?>
+                <ul class="message <?= $counter % 2 ? 'justify-left red-background' : 'justify-right green-background' ?>">
+                    <?= $message->printMessage()
+                    . '<br><span class="justify-right">-'
+                    . $message->sender
+                    . '</span>' ?>
                 </ul>
 
                 <?php $counter++;

@@ -6,30 +6,38 @@ use Core\Message;
 
 class User
 {
-    public int $id;
+    public int $ID;
+
+    public Friends $myFriends;
 
     protected array $user;
+
+    protected Database $db;
+
     protected $myRecievedMessages = [];
 
-    public function __construct($id)
+    public function __construct($ID)
     {
-        $this->id = $id;
-        $db = new Database();
-        $this->retrieveUser($db);
-        $this->retrieveMyRecievedMessages($db);
+        $this->ID = $ID;
+
+        $this->myFriends = new Friends();
+
+        $this->db = new Database();
+        $this->retrieveUser();
+        $this->retrieveMyRecievedMessages();
     }
 
-    protected function retrieveUser($db)
+    protected function retrieveUser()
     {
-        $this->user = $db->query('SELECT * FROM users WHERE userid = :id', [
-            'id' => $this->id
+        $this->user = $this->db->query('SELECT * FROM users WHERE userID = :ID', [
+            'ID' => $this->ID
         ])->find();
     }
 
-    protected function retrieveMyRecievedMessages($db)
+    protected function retrieveMyRecievedMessages()
     {
-        $returnedMessages = $db->query('SELECT * FROM messages WHERE recipiantId = :id', [
-            'id' => $this->id
+        $returnedMessages = $this->db->query('SELECT * FROM messages WHERE recipiantID = :ID', [
+            'ID' => $this->ID
         ])->getAll();
 
         $messageCounter = 1;
@@ -62,5 +70,30 @@ class User
         return $this->myRecievedMessages;
     }
 
+    //returns a array with all users full name and id: 'id' => 'name'
+    public function getAllUsers($excludeCurrentUser = true)
+    {
+        $allIds = $this->db->query("SELECT userID FROM users")->getColumn();
 
+        $counter = 0;
+        $allUsers = [];
+        foreach ($allIds as $id) {
+            if($id !== $this->ID ){
+
+                $firstname = $this->db->query("SELECT firstname FROM users WHERE userID = {$id}")->getString();
+                $lastname = $this->db->query("SELECT lastname FROM users WHERE userID = {$id}")->getString();
+                
+                $name = "{$firstname} {$lastname}";
+                
+                $allUsers[$counter] = [
+                    'name' => $name,
+                    'id' => $id
+                ];
+                $counter++;
+            }
+        }
+
+        return $allUsers;
+
+    }
 }

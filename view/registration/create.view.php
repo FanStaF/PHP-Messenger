@@ -3,7 +3,7 @@
 
 <body>
     <main>
-        <section>
+        <section class="section-container">
             <form action="/registration" method="POST" class="login-form">
                 <h1>Register</h1>
 

@@ -24,21 +24,21 @@ class Message
 
     protected function getSender($message)
     {
-        $this->sender = $this->getName($message['senderId']);
+        $this->sender = $this->getName($message['senderID']);
     }
 
     protected function getRecipiant($message)
     {
-        $this->recipiant = $this->getName($message['recipiantId']);
+        $this->recipiant = $this->getName($message['recipiantID']);
     }
     
-    protected function getName($id)
+    protected function getName($ID)
     {
         
         $db = new Database();
 
-        $user = $db->query("SELECT * FROM users WHERE userId = :id", [
-        'id' => $id
+        $user = $db->query("SELECT * FROM users WHERE userID = :ID", [
+        'ID' => $ID
         ])->find();
         
         return $user['firstname'] . ' ' . $user['lastname'];

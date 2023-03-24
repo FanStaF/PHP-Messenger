@@ -1,24 +1,34 @@
-<nav>
+<nav class="banner">
 
     <div>
         <span class="logo">FanStaF</span>
     </div>
 
     <?php if (isset($_SESSION['user'])): ?>
-        <div>
-            <a href="/messages">View Messages</a>
+        <div class="nav-div">
+            <form action="/messages">
+                <button>View Messages</button>
+            </form>
             <form action="/messages" method="POST">
                 <button>New Message</button>
             </form>
-            <a href="/friends">Friends</a>
+            <form action="/friends">
+                <button>Friends</button>
+            </form>
         </div>
-        <div>
-            <a href="/logout">Logout</a>
+        <div class="nav-div">
+            <form action="/logout">
+                <button>Logout</button>
+            </form>
         </div>
     <?php else: ?>
-        <div>
-            <a href="/login">Login</a>
-            <a href="/registration">Register</a>
+        <div class="nav-div">
+            <form action="/login">
+                <button>Login</button>
+            </form>
+            <form action="/registration">
+                <button>Register</button>
+            </form>
         </div>
     <?php endif; ?>
 

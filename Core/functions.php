@@ -27,15 +27,15 @@ function viewWithUser($view, $currentUser)
 }
 
 
-function login($userId)
+function login($userID)
 {
 
-    $_SESSION['user'] = $userId;
+    $_SESSION['user'] = $userID;
     session_regenerate_id(true);
 
 }
 
-function logout($userId)
+function logout($userID)
 {
 
     $_SESSION = [];

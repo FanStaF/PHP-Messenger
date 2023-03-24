@@ -14,3 +14,4 @@ $router->post('/messages', 'controller/messages/create.php');
 $router->put('/messages', 'controller/messages/store.php');
 
 $router->get('/friends', 'controller/friends/index.php');
+$router->post('/friends', 'controller/friends/store.php');

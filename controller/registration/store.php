@@ -45,8 +45,8 @@ if ($user) {
         'email' => $_POST['email']
     ])->find();
 
-    $id = $user['userId'];
-    login($id);
+    $ID = $user['userID'];
+    login($ID);
 
     header('location: /messages');
 
