@@ -6,6 +6,7 @@ $message = $_POST['messageText'];
 $messageTo = $_POST['messageTo'];
 
 if (!Validator::string($message, 4, 1024)) {
+    // return to create.view if message is of invalid length
     return view('messages/create.view.php', [
         '$error' => "Invalid message length. (4-1024)"
     ]);

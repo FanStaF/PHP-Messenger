@@ -7,10 +7,10 @@
     <?php if (isset($_SESSION['user'])): ?>
         <div class="nav-div">
             <form action="/messages">
-                <button>View Messages</button>
+                <button>View messages</button>
             </form>
             <form action="/messages" method="POST">
-                <button>New Message</button>
+                <button>New message</button>
             </form>
             <form action="/friends">
                 <button>Friends</button>

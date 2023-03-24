@@ -1,5 +1,5 @@
 <?php view('partials/head.view.php');
-use Core\User; ?>
+use Core\CurrentUser; ?>
 <?php view('partials/nav.view.php'); ?>
 
 <body>
@@ -7,15 +7,15 @@ use Core\User; ?>
         <section class="section-container">
             <form action="/messages" method="POST" class="input-form">
                 <input type="hidden" name="_method" value="PUT">
-                <h1>New Message</h1>
+                <h1>New message</h1>
 
                 <div>
 
                     <label for="messageTo">Send message to:</label>
                     <select name="messageTo" id="messageTo">
-                        <?php $currentUser = new User($_SESSION['user']);
-                    
-                        foreach ($currentUser->myFriends->friendsIDList as $friend) {
+                        <?php $currentUser = new CurrentUser($_SESSION['user']);
+                        // Add dropdown menu to select friends
+                        foreach ($currentUser->myFriends->listOfIDs as $friend) {
                             echo "<option value='{$friend}'>{$currentUser->myFriends->getFriendName($friend)}</option>}";
                         }
                         ?>

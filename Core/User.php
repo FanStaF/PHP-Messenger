@@ -2,98 +2,37 @@
 
 namespace Core;
 
-use Core\Message;
-
+//
+// User is a base class that retrieves and holds the information
+// about a single user and provides access their info.
+//
 class User
 {
-    public int $ID;
+    // public variables
+    public $ID;
+    public $firstname;
+    public $lastname;
+    public $email;
 
-    public Friends $myFriends;
-
-    protected array $user;
-
-    protected Database $db;
-
-    protected $myRecievedMessages = [];
-
-    public function __construct($ID)
+    //constructor
+    public function __construct($id)
     {
-        $this->ID = $ID;
+        $db = new Database();
 
-        $this->myFriends = new Friends();
-
-        $this->db = new Database();
-        $this->retrieveUser();
-        $this->retrieveMyRecievedMessages();
-    }
-
-    protected function retrieveUser()
-    {
-        $this->user = $this->db->query('SELECT * FROM users WHERE userID = :ID', [
-            'ID' => $this->ID
+        $user = $db->query('SELECT * FROM users WHERE userID = :ID', [
+            'ID' => $id
         ])->find();
+
+        $this->ID = $user['userID'];
+        $this->firstname = $user['firstname'];
+        $this->lastname = $user['lastname'];
+        $this->email = $user['email'];
+
     }
 
-    protected function retrieveMyRecievedMessages()
+    // returns the full name of User
+    public function fullName()
     {
-        $returnedMessages = $this->db->query('SELECT * FROM messages WHERE recipiantID = :ID', [
-            'ID' => $this->ID
-        ])->getAll();
-
-        $messageCounter = 1;
-        foreach ($returnedMessages as $message) {
-            $this->myRecievedMessages[$messageCounter] = new Message($message);
-            $messageCounter++;
-        }
-    }
-
-    public function getFirstname()
-    {
-        return $this->user['firstname'];
-    }
-    public function getLastname()
-    {
-        return $this->user['lastname'];
-    }
-    public function getEmail()
-    {
-        return $this->user['email'];
-    }
-
-    public function getFullName()
-    {
-        return $this->user['firstname'] . ' ' . $this->user['lastname'];
-    }
-
-    public function getMyRecievedMessages()
-    {
-        return $this->myRecievedMessages;
-    }
-
-    //returns a array with all users full name and id: 'id' => 'name'
-    public function getAllUsers($excludeCurrentUser = true)
-    {
-        $allIds = $this->db->query("SELECT userID FROM users")->getColumn();
-
-        $counter = 0;
-        $allUsers = [];
-        foreach ($allIds as $id) {
-            if($id !== $this->ID ){
-
-                $firstname = $this->db->query("SELECT firstname FROM users WHERE userID = {$id}")->getString();
-                $lastname = $this->db->query("SELECT lastname FROM users WHERE userID = {$id}")->getString();
-                
-                $name = "{$firstname} {$lastname}";
-                
-                $allUsers[$counter] = [
-                    'name' => $name,
-                    'id' => $id
-                ];
-                $counter++;
-            }
-        }
-
-        return $allUsers;
-
+        return $this->firstname . ' ' . $this->lastname;
     }
 }

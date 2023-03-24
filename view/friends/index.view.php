@@ -12,11 +12,12 @@
                         <th>Friend</th>
                     </tr>
                     <?php
+                    // Build table with all users and checkbox
                     foreach ($currentUser->getAllUsers() as $user) {
                         echo "<tr>";
                         echo "<td>{$user['name']}</td>";
 
-                        in_array($user['id'], $currentUser->myFriends->friendsIDList)
+                        in_array($user['id'], $currentUser->myFriends->listOfIDs)
                             ? $checkbox = "<td><input name='{$user['id']}' type='checkbox' checked></td>"
                             : $checkbox = "<td><input name='{$user['id']}' type='checkbox' ></td>";
                         echo $checkbox;

@@ -2,7 +2,6 @@
 
 use Core\Database;
 use Core\FormValidator;
-use Core\User;
 
 $formData = [
     'firstname' => $_POST['firstname'],
@@ -19,7 +18,7 @@ if (count($errors)) {
     ]);
 }
 
-
+// check if email already in db
 $db = new Database();
 
 $email = $_POST['email'];
@@ -30,9 +29,11 @@ $user = $db->query('SELECT * from users WHERE email = :email', [
 
 
 if ($user) {
+    // Email exists: send to login
     return view('session/create.view.php', ['Email already exists. Please login.']);
 
 } else {
+    // Create new user
     $password = password_hash($_POST['password'], PASSWORD_BCRYPT);
 
     $db->query("INSERT INTO users (firstname, lastname, email, password) VALUES(:firstname, :lastname, :email, :password)", [
@@ -49,15 +50,4 @@ if ($user) {
     login($ID);
 
     header('location: /messages');
-
 }
-
-
-
-
-
-//Retreve POST content
-//verify name, lastname, email, password
-//load DB
-//Check compare email and password
-//Log in and redirect to index.php OR redirect to login with error

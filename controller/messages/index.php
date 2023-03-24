@@ -1,7 +1,7 @@
 <?php
-use Core\User;
 
-$currentUser = new User($_SESSION['user']);
+use Core\CurrentUser;
+
+$currentUser = new CurrentUser($_SESSION['user']);
 
 viewWithUser('messages/index.view.php', $currentUser);
-exit();

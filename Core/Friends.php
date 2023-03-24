@@ -2,34 +2,26 @@
 
 namespace Core;
 
+//
+// Friends stores a list of IDs for a users friends and
+// provides access to to each friends full name.
+//
 class Friends
 {
-    public array $friendsIDList;
+    // public variables
+    public array $listOfIDs;
 
+    // prodected variables
     protected Database $db;
 
-    public function __construct()
+    // constructor
+    public function __construct($userID)
     {
-
         $this->db = new Database();
-        $this->friendsIDList = $this->getFriendIDs();
+        $this->listOfIDs = $this->getFriendIDs($userID);
     }
 
-
-    public function requestFriend()
-    {
-
-    }
-
-    public function acceptFriend()
-    {
-
-    }
-
-    public function dropFriend()
-    {
-
-    }
+    // returns string holding full name of friend with $friendsID
     public function getFriendName($friendID)
     {
 
@@ -37,12 +29,13 @@ class Friends
         $lastname = $this->db->query("SELECT lastname FROM users WHERE userID = {$friendID}")->getString();
 
         return "{$firstname} {$lastname}";
-
     }
-    public function getFriendIDs()
+
+    // returnes an array holding the IDs of all friends for user with id=$userID
+    protected function getFriendIDs($userID)
     {
-        return $this->db->query("SELECT accepterID FROM friends WHERE requesterID = {$_SESSION['user']}
+        return $this->db->query("SELECT accepterID FROM friends WHERE requesterID = {$userID}
                             UNION
-                            SELECT requesterID FROM friends WHERE accepterID = {$_SESSION['user']}")->getColumn();
+                            SELECT requesterID FROM friends WHERE accepterID = {$userID}")->getColumn();
     }
 }

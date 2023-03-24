@@ -5,19 +5,19 @@
     <main>
         <section class="section-container">
             <h1>Welcome
-                <?= $currentUser->getFirstname(); ?>.
+                <?= $currentUser->firstname; ?>.
             </h1>
             <h2>Here are your messages.</h2>
 
             <?php
 
-            $messages = $currentUser->getMyRecievedMessages();
+            $messages = $currentUser->retrieveMymessages();
 
             $counter = 1;
-
+            // To Do: only show messages from friends
             foreach ($messages as $message): ?>
                 <ul class="message <?= $counter % 2 ? 'justify-left red-background' : 'justify-right green-background' ?>">
-                    <?= $message->printMessage()
+                    <?= $message->printmessage()
                     . '<br><span class="justify-right">-'
                     . $message->sender
                     . '</span>' ?>

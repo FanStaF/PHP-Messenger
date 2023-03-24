@@ -1,8 +1,7 @@
 <?php
 
-use Core\User;
+use Core\CurrentUser;
 
-$currentUser = new User($_SESSION['user']);
-
+$currentUser = new CurrentUser($_SESSION['user']);
 
 viewWithUser('friends/index.view.php', $currentUser);
