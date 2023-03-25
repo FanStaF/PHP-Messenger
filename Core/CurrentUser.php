@@ -49,26 +49,25 @@ class CurrentUser extends User
     //returns a array with all users full name and id: 'id' => 'name'
     public function getAllUsers($excludeCurrentUser = true)
     {
-        $allIds = $this->db->query("SELECT userID FROM users")->getColumn();
+        // Get all user IDs except the current user
+        $allIds = $this->db->query("SELECT userID FROM users WHERE userID <> {$this->ID}")->getColumn();
 
         $counter = 0;
         $allUsers = [];
 
         foreach ($allIds as $id) {
 
-            if ($id !== $this->ID) { // exclude current user from list
+            $firstname = $this->db->query("SELECT firstname FROM users WHERE userID = {$id}")->getString();
+            $lastname = $this->db->query("SELECT lastname FROM users WHERE userID = {$id}")->getString();
 
-                $firstname = $this->db->query("SELECT firstname FROM users WHERE userID = {$id}")->getString();
-                $lastname = $this->db->query("SELECT lastname FROM users WHERE userID = {$id}")->getString();
+            $name = "{$firstname} {$lastname}";
 
-                $name = "{$firstname} {$lastname}";
+            $allUsers[$counter] = [
+                'name' => $name,
+                'id' => $id
+            ];
+            $counter++;
 
-                $allUsers[$counter] = [
-                    'name' => $name,
-                    'id' => $id
-                ];
-                $counter++;
-            }
         }
 
         return $allUsers;
