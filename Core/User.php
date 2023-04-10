@@ -2,19 +2,36 @@
 
 namespace Core;
 
-//
-// User is a base class that retrieves and holds the information
-// about a single user and provides access their info.
-//
+/**
+ * Base class that retrievs, holds and provides access to information about a singel user.
+ */
 class User
 {
-    // public variables
+    /**
+     * user id
+     * @var int
+     */
     public $ID;
+    /**
+     * first name of user
+     * @var string
+     */
     public $firstname;
+    /**
+     * last name of user
+     * @var string
+     */
     public $lastname;
+    /**
+     * users email
+     * @var string
+     */
     public $email;
 
-    //constructor
+    /**
+     * Retrieves information about user from database.
+     * @param int $id
+     */
     public function __construct($id)
     {
         $db = new Database();
@@ -30,7 +47,10 @@ class User
 
     }
 
-    // returns the full name of User
+    /**
+     * Returns full name of user
+     * @return string
+     */
     public function fullName()
     {
         return $this->firstname . ' ' . $this->lastname;

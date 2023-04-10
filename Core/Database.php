@@ -4,28 +4,55 @@ namespace Core;
 
 use PDO;
 
-//
-// Database configuration and access
-//
+/**
+ * Database class for interacting with the database.
+ *  Local:
+ *      db 'messenger'
+ *      user 'root'
+ *      password ''
+ *  messenger.fanstaf.com:
+ *      db 'fanstafc_messanger':
+ *      user 'fanstafc_messanger'
+ *      password '4k7]D,9GLbQQ'
+ */
 class Database
 {
-    // Local db 'messenger': user 'root' password ''
-    // messenger.fanstaf.com db 'fanstafc_messanger': user 'fanstafc_messanger' password '4k7]D,9GLbQQ'
-    //
+    /**
+     * Holds configuration for database.
+     * 
+     * @var array
+     */
     protected $config = [
         'host' => 'localhost',
         'port' => '3306',
         'dbname' => 'messenger',
         'charset' => 'utf8mb4'
     ];
+    /**
+     * username for database
+     * @var string
+     */
     protected $username = 'root';
+    /**
+     * Password for database
+     * @var string
+     */
     protected $password = '';
 
-    // public variables
+    /**
+     * PDO object for connecting to database
+     * @var PDO
+     */
     public $connection;
+    /**
+     * SQL-string to query database
+     * @var string
+     */
     public $statement;
 
-    //Constructor
+    /**
+     * Create PDO object to connect to databse
+     */
     public function __construct()
     {
         $dsn = 'mysql:' . http_build_query($this->config, '', ';');
@@ -35,7 +62,12 @@ class Database
         ]);
     }
 
-    // Query
+    /**
+     * Sends query to database
+     * @param string $query
+     * @param mixed $params
+     * @return Database
+     */
     public function query($query, $params = [])
     {
         $this->statement = $this->connection->prepare($query);
@@ -44,25 +76,40 @@ class Database
         return $this;
     }
 
-    // Returns one whole record
+    /**
+     * Finds and returns one record from database.
+     * @return mixed
+     */
     public function find()
     {
         return $this->statement->fetch();
     }
 
-    // Returns one column from first matching record
+    /**
+     * Returns one one colum from one record.
+     * 
+     * @return mixed
+     */
     public function getString()
     {
         return $this->statement->fetch(PDO::FETCH_COLUMN);
     }
 
-    // Returns all matching records
+    /**
+     * Returns all matching records.
+     * 
+     * @return array
+     */
     public function getAll()
     {
         return $this->statement->fetchAll();
     }
 
-    // Returns one column from all matching records
+    /**
+     * Returns one column from all matching record
+     * 
+     * @return array
+     */
     public function getColumn()
     {
         return $this->statement->fetchAll(PDO::FETCH_COLUMN);

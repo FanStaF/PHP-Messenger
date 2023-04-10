@@ -2,13 +2,20 @@
 
 namespace Core;
 
-//
-// Validates input from user fillable forms.
-// Always verifies as string if $key is anything
-// but 'email' or 'password'
-//
+/**
+ * Valitades input from user fillable forms.
+ * 
+ * Defaults to verify as string if $key is NOT 'email or 'password'.
+ * 
+ */
 class FormValidator extends Validator
 {
+    /**
+     * Validates email, password or length of string.
+     * 
+     * @param mixed $formData Holds user input with field name as $key
+     * @return array<string> Array holding error messages.
+     */
     public static function validateFormData($formData)
     {
         $errors = [];

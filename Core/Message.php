@@ -2,16 +2,32 @@
 
 namespace Core;
 
-// message stores the text of one message along with the name of its sender and recipiant
+/**
+ * Holds the text of one message along with the name of its sender and recipiant
+ */
 class Message
 {
 
-    // public variables
+    /**
+     * Name of sender.
+     * @var string
+     */
     public $sender;
+    /**
+     * name of recipiant
+     * @var string
+     */
     public $recipiant;
+    /**
+     * text of the message
+     * @var string
+     */
     public $messageText;
 
-    // constructor
+    /**
+     * Retrieve the text, sender and recipiand of the message.
+     * @param array $message (senderID, recipiantID, message)
+     */
     public function __construct(array $message)
     {
         $this->getSender($message);
@@ -19,25 +35,40 @@ class Message
         $this->messageText = $message['message'];
     }
 
-    // print the text of the message
+    /**
+     * Output the text of the message.
+     * @return void
+     */
     public function printmessage()
     {
         echo $this->messageText;
     }
 
-    // returns full name of the messages sender
+    /**
+     * Get full name of sender
+     * @param mixed $message
+     * @return void
+     */
     protected function getSender($message)
     {
         $this->sender = $this->getName($message['senderID']);
     }
 
-    // returns the full name of the message recipiant
+    /**
+     * Get full name of recipiant
+     * @param mixed $message
+     * @return void
+     */
     protected function getRecipiant($message)
     {
         $this->recipiant = $this->getName($message['recipiantID']);
     }
 
-    // returns the full name of user with id=$ID
+    /**
+     * Get full name of of user iwth $ID
+     * @param int $ID
+     * @return string
+     */
     protected function getName($ID)
     {
         $db = new Database();

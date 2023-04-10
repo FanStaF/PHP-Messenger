@@ -2,41 +2,79 @@
 
 namespace Core;
 
-//
-// Router for the messenger app
-//
+/**
+ * Router of PHP-Messenger
+ */
 class Router
 {
-    // protected variables
+    /**
+     * Array holding all available routes
+     * @var array
+     */
     protected $routes = [];
 
-    // Available HTTP methods:
+    /**
+     * Handle all get
+     * @param mixed $uri
+     * @param mixed $controller
+     * @return Router
+     */
     public function get($uri, $controller)
     {
         return $this->add($uri, $controller, 'GET');
     }
 
+    /**
+     * Handle all post
+     * @param mixed $uri
+     * @param mixed $controller
+     * @return Router
+     */
     public function post($uri, $controller)
     {
         return $this->add($uri, $controller, 'POST');
     }
 
+    /**
+     * Handle all delete requests.
+     * @param mixed $uri
+     * @param mixed $controller
+     * @return Router
+     */
     public function delete($uri, $controller)
     {
         return $this->add($uri, $controller, 'DELETE');
     }
 
+    /**
+     * Handle all put requests.
+     * @param mixed $uri
+     * @param mixed $controller
+     * @return Router
+     */
     public function put($uri, $controller)
     {
         return $this->add($uri, $controller, 'PUT');
     }
 
+    /**
+     * Handle all patch requests.
+     * @param mixed $uri
+     * @param mixed $controller
+     * @return Router
+     */
     public function patch($uri, $controller)
     {
         return $this->add($uri, $controller, 'PATCH');
     }
 
-    // add a new route to the table $routes
+    /**
+     * Handle all add requests.
+     * @param mixed $uri
+     * @param mixed $controller
+     * @param mixed $method
+     * @return Router
+     */
     protected function add($uri, $controller, $method)
     {
         $this->routes[] = [
@@ -49,7 +87,12 @@ class Router
         return $this;
     }
 
-    // Find and require requested uri with matching method
+    /**
+     * Find matching uri and handle request.
+     * @param mixed $uri
+     * @param mixed $method
+     * @return mixed
+     */
     public function route($uri, $method)
     {
 
@@ -62,7 +105,11 @@ class Router
         $this->abort();
     }
 
-    // loads view for different html response codes
+    /**
+     * Load view for different error codes.
+     * @param int $code
+     * @return never
+     */
     protected function abort($code = 404)
     {
         http_response_code($code);
